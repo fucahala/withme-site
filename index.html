@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>withme</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, "Microsoft YaHei", sans-serif;
+      background: linear-gradient(180deg, #07111F, #10243A, #182D45);
+      color: #EAF4FF;
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 80px 30px;
+      text-align: center;
+    }
+
+    .top-line {
+      color: #BFD7FF;
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+
+    .brand {
+      font-size: 70px;
+      font-weight: 900;
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .tagline {
+      font-size: 30px;
+      color: #C7D9FF;
+      margin-bottom: 60px;
+    }
+
+    .main-btn {
+      display: inline-block;
+      width: 70%;
+      max-width: 500px;
+      height: 70px;
+      line-height: 70px;
+      border-radius: 999px;
+      background: #4DA3FF;
+      color: #08233D;
+      font-size: 26px;
+      font-weight: bold;
+      text-decoration: none;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(77,163,255,0.3);
+    }
+
+    .hero-text {
+      font-size: 20px;
+      line-height: 1.8;
+      color: #DDEBFF;
+      margin-bottom: 60px;
+    }
+
+    .hero-text span {
+      color: #8FBFFF;
+    }
+
+    .section-title {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .section-desc {
+      font-size: 16px;
+      color: rgba(221,235,255,0.7);
+      margin-bottom: 20px;
+    }
+
+    .chips {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 50px;
+    }
+
+    .chip {
+      padding: 8px 18px;
+      border-radius: 10px;
+      border: 1px solid rgba(191,215,255,0.5);
+      font-size: 16px;
+    }
+
+    .also {
+      margin-top: 40px;
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    /* 动态消息 */
+    .feed {
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 12px 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      animation: fadeIn 0.4s ease;
+    }
+
+    .user {
+      font-size: 13px;
+      color: #8FBFFF;
+      margin-bottom: 4px;
+    }
+
+    .content {
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .meta {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 4px;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+
+    <div class="top-line">今天，你想去哪里？</div>
+
+    <div class="brand">withme</div>
+
+    <div class="tagline">同行不孤单</div>
+
+    <a class="main-btn" href="#">我在这里</a>
+
+    <div class="hero-text">
+      在陌生的地方，总有人也在这里。<br/>
+      <span>别怕，有我。</span>
+    </div>
+
+    <div class="section-title">热门目的地（示意）</div>
+    <div class="section-desc">后续可接搜索与推荐</div>
+
+    <div class="chips">
+      <div class="chip">东京</div>
+      <div class="chip">大阪</div>
+      <div class="chip">台北</div>
+      <div class="chip">新加坡</div>
+      <div class="chip">首尔</div>
+      <div class="chip">香港</div>
+    </div>
+
+    <div class="also">别人也在这里</div>
+
+    <div class="feed" id="feed"></div>
+
+  </div>
+
+  <!-- 🔥 动态模拟 -->
+  <script>
+    const messages = [
+      "今晚去涩谷，有人一起吗？第一次来有点慌 😂",
+      "一个人旅行，有点孤单，有人也在这吗？",
+      "明天环球影城，找个搭子一起排队",
+      "刚到新城市，有人一起吃饭吗？",
+      "晚上随便走走，有人同行吗？",
+      "第一次来这边，有点紧张",
+      "一个人咖啡店坐着，有人聊天吗？"
+    ];
+
+    const users = [
+      "小林 · 东京",
+      "Mia · 首尔",
+      "阿杰 · 新加坡",
+      "Leo · 香港"
+    ];
+
+    function createMessage() {
+      const feed = document.getElementById("feed");
+
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const user = document.createElement("div");
+      user.className = "user";
+      user.innerText = users[Math.floor(Math.random() * users.length)];
+
+      const content = document.createElement("div");
+      content.className = "content";
+      content.innerText = messages[Math.floor(Math.random() * messages.length)];
+
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.innerText = "刚刚";
+
+      card.appendChild(user);
+      card.appendChild(content);
+      card.appendChild(meta);
+
+      feed.prepend(card);
+
+      if (feed.children.length > 6) {
+        feed.removeChild(feed.lastChild);
+      }
+    }
+
+    // 初始化
+    for (let i = 0; i < 4; i++) {
+      createMessage();
+    }
+
+    // 每3秒新增
+    setInterval(createMessage, 3000);
+  </script>
+
+</body>
+</html>
+  </main>
+</body>
+</html>
